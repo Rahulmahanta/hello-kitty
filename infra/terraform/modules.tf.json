@@ -4,15 +4,15 @@
       "architecture": "x86_64",
       "authorization_type": "NONE",
       "cors": [],
-      "create_function_url": false,
+      "create_function_url": true,
       "description": null,
       "environment_variables": {
         "IMAGES_BUCKET": "rahulmahanta15"
       },
       "event_source_arn": null,
       "event_source_mapping": [],
-      "filename": null,
-      "function_name": "hello-kitty-function",
+      "filename": "build/app.zip",
+      "function_name": "rahulmahanta",
       "handler": "main.lambda_handler",
       "log_format": null,
       "log_group_name": "${module.appcd_86ec452a-770a-59bf-87dd-67ed883e25e5.name}",
@@ -31,8 +31,8 @@
       "timeout": 3
     },
     "appcd_0283d2e1-6dd7-4422-920f-4f2ebb393107": {
-      "name": "Writer",
-      "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"CloudWatchLogGroup86ec452a770a59bf87dd67ed883e25e50\",\n      \"Action\": [\n        \"logs:CreateLogGroup\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_86ec452a-770a-59bf-87dd-67ed883e25e5.arn}\"\n      ]\n    },\n    {\n      \"Sid\": \"CloudWatchLogGroup86ec452a770a59bf87dd67ed883e25e51\",\n      \"Action\": [\n        \"logs:CreateLogStream\",\n        \"logs:PutLogEvents\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_86ec452a-770a-59bf-87dd-67ed883e25e5.arn}:*\"\n      ]\n    }\n  ]\n}",
+      "name": "rahulmahanta",
+      "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"CloudWatchLogGroup86ec452a770a59bf87dd67ed883e25e5\",\"Action\":[\"logs:CreateLogGroup\"],\"Effect\":\"Allow\",\"Resource\":[\"${module.appcd_86ec452a-770a-59bf-87dd-67ed883e25e5.arn}\"]},{\"Sid\":\"\",\"Action\":[\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":[\"${module.appcd_86ec452a-770a-59bf-87dd-67ed883e25e5.arn}:*\"]}]}",
       "role": "${module.appcd_b71fd16c-797e-5a95-8e1b-ab22f1e34f43.name}",
       "role_type": "Writer",
       "source": "./modules/aws_iam_role_policy"
@@ -53,7 +53,7 @@
       "website_index_document": "index.html"
     },
     "appcd_86ec452a-770a-59bf-87dd-67ed883e25e5": {
-      "name": "/aws/lambda/hello-kitty-function",
+      "name": "/aws/lambda/rahulmahanta",
       "retention_in_days": 7,
       "source": "./modules/aws_cloudwatch_log_group",
       "tags": {
@@ -62,16 +62,19 @@
       }
     },
     "appcd_b71fd16c-797e-5a95-8e1b-ab22f1e34f43": {
-      "assume_role_policy": "{\n\t\t\"Version\": \"2012-10-17\",\n\t\t\"Statement\":{\n\t\t\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\t\t\"Effect\": \"Allow\",\n\t\t\t\t\"Principal\": {\n\t\t\t\t\t\"Service\": \"lambda.amazonaws.com\"\n\t\t\t\t}\n\t\t\t}\n\t}",
+      "assume_role_policy": "{\n\t\"Version\": \"2012-10-17\",\n\t\"Statement\": {\n\t\t\"Action\": \"sts:AssumeRole\",\n\t\t\"Effect\": \"Allow\",\n\t\t\"Principal\": {\n\t\t\t\"Service\": \"lambda.amazonaws.com\"\n\t\t}\n\t}\n}",
       "description": null,
       "force_detach_policies": true,
       "inline_policy": [],
-      "name": "hello-kitty-role",
+      "name": "hello-kitty-role-rahulmahanta",
       "source": "./modules/aws_iam_role",
-      "tags": null
+      "tags": {
+        "appstack": "hello-kittiess",
+        "component": "hello-kitty"
+      }
     },
     "appcd_ff69010c-cbc0-4a41-8602-714c87c698c4": {
-      "name": "aws_s3-hello-kitty-policy",
+      "name": "rahulmahanta",
       "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowKmsAccess\",\n      \"Action\": [\n        \"kms:Decrypt\",\n        \"kms:Encrypt\",\n        \"kms:GenerateDataKey\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_551e1d2b-88ec-5406-87cf-c51521bbe894.kms_arn}\"\n      ]\n    },\n    {\n      \"Sid\": \"hellokittyIMAGESBUCKETS3Bucket551e1d2b88ec540687cfc51521bbe894\",\n      \"Action\": [\n        \"s3:PutObject\",\n        \"s3:ListBucket\",\n        \"s3:GetObject\",\n        \"s3:GetObjectVersion\"\n      ],\n      \"Effect\": \"Allow\",\n      \"Resource\": [\n        \"${module.appcd_551e1d2b-88ec-5406-87cf-c51521bbe894.arn}\",\n        \"${module.appcd_551e1d2b-88ec-5406-87cf-c51521bbe894.arn}/*\"\n      ]\n    }\n  ]\n}",
       "role": "${module.appcd_b71fd16c-797e-5a95-8e1b-ab22f1e34f43.name}",
       "role_type": "Custom",
